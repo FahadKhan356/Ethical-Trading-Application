@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -22,6 +22,8 @@ type RootStackParamList = {
 
 const CommunityScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+   const [activeFilter,setActiveFilter]=useState('co-ops')
+ 
   return (
     <ImageBackground
       source={IMAGES.Homebg2}
@@ -61,9 +63,36 @@ const CommunityScreen = () => {
           showsHorizontalScrollIndicator={false}
           style={styles.filterRow}
         >
-          <Text style={[styles.filter, styles.activeFilter]}>co-ops</Text>
-          <Text style={styles.filter}>farms</Text>
-          <Text style={styles.filter}>ReFi DAO</Text>
+       <TouchableOpacity onPress={() => setActiveFilter('co-ops')}>
+  <Text
+    style={[
+      styles.filter,
+      activeFilter === 'co-ops' && styles.activeFilter,
+    ]}>
+    co-ops
+  </Text>
+</TouchableOpacity>
+
+<TouchableOpacity onPress={() => setActiveFilter('farms')}>
+  <Text
+    style={[
+      styles.filter,
+      activeFilter === 'farms' && styles.activeFilter,
+    ]}>
+    farms
+  </Text>
+</TouchableOpacity>
+
+<TouchableOpacity onPress={() => setActiveFilter('ReFi DAO')}>
+  <Text
+    style={[
+      styles.filter,
+      activeFilter === 'ReFi DAO' && styles.activeFilter,
+    ]}>
+    ReFi DAO
+  </Text>
+</TouchableOpacity>
+
         </ScrollView>
 
         <View style={styles.card}>
@@ -212,7 +241,7 @@ const styles = StyleSheet.create({
   activeFilter: {
     backgroundColor: COLORS.white,
     color: '#000',
-    fontWeight: '600',
+
   },
 
 

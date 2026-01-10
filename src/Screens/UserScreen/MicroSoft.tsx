@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -17,6 +17,9 @@ const {width, height} = Dimensions.get('window');
 
 const MicrosoftGroupScreen = () => {
   const navigation = useNavigation();
+
+  const [activeFilter, setActiveFilter] = useState('1D');
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <ImageBackground
@@ -46,13 +49,58 @@ const MicrosoftGroupScreen = () => {
           <Image source={ICONS.downarrow} style={styles.downIcon} />
         </View>
 
-        <View style={styles.filterRow}>
-          <Text style={[styles.filter, styles.activeFilter]}>1D</Text>
-          <Text style={styles.filter}>5D</Text>
-          <Text style={styles.filter}>1M</Text>
-          <Text style={styles.filter}>6M</Text>
-          <Text style={styles.filter}>Y</Text>
-        </View>
+      <View style={styles.filterRow}>
+  <TouchableOpacity onPress={() => setActiveFilter('1D')}>
+    <Text
+      style={[
+        styles.filter,
+        activeFilter === '1D' && styles.activeFilter,
+      ]}>
+      1D
+    </Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity onPress={() => setActiveFilter('5D')}>
+    <Text
+      style={[
+        styles.filter,
+        activeFilter === '5D' && styles.activeFilter,
+      ]}>
+      5D
+    </Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity onPress={() => setActiveFilter('1M')}>
+    <Text
+      style={[
+        styles.filter,
+        activeFilter === '1M' && styles.activeFilter,
+      ]}>
+      1M
+    </Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity onPress={() => setActiveFilter('6M')}>
+    <Text
+      style={[
+        styles.filter,
+        activeFilter === '6M' && styles.activeFilter,
+      ]}>
+      6M
+    </Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity onPress={() => setActiveFilter('Y')}>
+    <Text
+      style={[
+        styles.filter,
+        activeFilter === 'Y' && styles.activeFilter,
+      ]}>
+      Y
+    </Text>
+  </TouchableOpacity>
+</View>
+
 
         <View style={styles.graphWrapper}>
           <View style={styles.yAxis}>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import {
   View,
   Text,
@@ -16,6 +17,8 @@ const {width, height} = Dimensions.get('window');
 
 
 const AIAssistantScreen = () => {
+  const [activeTime, setActiveTime] = useState('1D');
+
   return (
     <ImageBackground
       source={IMAGES.Homebg2}
@@ -63,27 +66,32 @@ const AIAssistantScreen = () => {
           <Text style={styles.changeText}>1.7590 $ (0.57%)</Text>
           <Image source={ICONS.downarrow} style={styles.downIcon} />
         </View>
+<View style={styles.timeRow}>
+  {['1D', '5D', '1M', '6M', 'Y'].map(item => (
+    <TouchableOpacity
+      key={item}
+      onPress={() => setActiveTime(item)}
+      activeOpacity={0.8}
+    >
+      <View
+        style={[
+          styles.timeBtn,
+          activeTime === item && styles.activeTime,
+        ]}
+      >
+        <Text
+          style={[
+            styles.timeText,
+            activeTime === item && styles.activeTimeText,
+          ]}
+        >
+          {item}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  ))}
+</View>
 
-        <View style={styles.timeRow}>
-          {['1D', '5D', '1M', '6M', 'Y'].map((item, index) => (
-            <View
-              key={index}
-              style={[
-                styles.timeBtn,
-                item === '1D' && styles.activeTime,
-              ]}
-            >
-              <Text
-                style={[
-                  styles.timeText,
-                  item === '1D' && styles.activeTimeText,
-                ]}
-              >
-                {item}
-              </Text>
-            </View>
-          ))}
-        </View>
 
       
         <View style={styles.graphWrapper}>

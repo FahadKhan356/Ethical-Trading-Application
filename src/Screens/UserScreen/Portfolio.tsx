@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -14,7 +14,10 @@ import {IMAGES, ICONS} from '../../Constants/IMAGES';
 import { Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
+
 const PortfolioScreen = ({navigation}: any) => {
+
+  const [activeFilter, setActiveFilter]=useState('Technology')
   return (
     <ImageBackground
       source={IMAGES.Homebg2}
@@ -53,11 +56,36 @@ const PortfolioScreen = ({navigation}: any) => {
           showsHorizontalScrollIndicator={false}
           style={styles.filterRow}
         >
-          <Text style={[styles.filter, styles.activeFilter]}>
-            Technology
-          </Text>
-          <Text style={styles.filter}>Anti Weapons</Text>
-          <Text style={styles.filter}>Anti Wear</Text>
+   <TouchableOpacity onPress={() => setActiveFilter('Technology')}>
+  <Text
+    style={[
+      styles.filter,
+      activeFilter === 'Technology' && styles.activeFilter,
+    ]}>
+    Technology
+  </Text>
+</TouchableOpacity>
+
+<TouchableOpacity onPress={() => setActiveFilter('Anti Weapons')}>
+  <Text
+    style={[
+      styles.filter,
+      activeFilter === 'Anti Weapons' && styles.activeFilter,
+    ]}>
+    Anti Weapons
+  </Text>
+</TouchableOpacity>
+
+<TouchableOpacity onPress={() => setActiveFilter('Anti Wear')}>
+  <Text
+    style={[
+      styles.filter,
+      activeFilter === 'Anti Wear' && styles.activeFilter,
+    ]}>
+    Anti Wear
+  </Text>
+</TouchableOpacity>
+
         </ScrollView>
 
       
