@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
 
   bigText: {
     color: COLORS.white,
-    fontSize: width * 0.081,
+    fontSize: width * 0.077,
     fontWeight: '800',
   },
 
