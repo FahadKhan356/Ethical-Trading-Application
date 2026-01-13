@@ -2,30 +2,82 @@ import React, {useState} from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   Image,
   ImageBackground,
   TouchableOpacity,
   ScrollView,
-  Dimensions,
+  Alert,
+  ActivityIndicator,
+  StyleSheet
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {IMAGES} from '../../Constants/IMAGES';
 import {COLORS} from '../../Constants/COLORS';
 import CustomInput from '../../Components/CustomInput';
-import {useNavigation} from '@react-navigation/native';
-
-const {width, height} = Dimensions.get('window');
-
+import { Dimensions } from 'react-native';
+   const {width, height} = Dimensions.get('window'); 
+ 
 const LoginScreen = () => {
   const navigation = useNavigation<any>();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+  });
   const [secure, setSecure] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  const handleInput = (name: string, text: string) => {
-    if (name === 'email') setEmail(text);
-    if (name === 'password') setPassword(text);
+  const handleInput = (name: string, value: string) => {
+    setForm(prev => ({
+      ...prev,
+      [name]: value,
+    }));
   };
+  const validateForm = () => {
+    const {email, password} = form;
+
+    if (!email.trim()) {
+      Alert.alert('Error', 'Email is required');
+      return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      Alert.alert('Error', 'Enter a valid Email');
+      return false;
+    }
+
+    if (!password.trim()) {
+      Alert.alert('Error', 'Password is required');
+      return false;
+    }
+
+    if (password.length < 6) {
+      Alert.alert('Error', 'Password must be at least 6 characters');
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleLogin = async () => {
+    if (!validateForm()) return;
+
+    try {
+      setLoading(true);
+
+      console.log('Login Payload:', form);
+
+      setTimeout(() => {
+        setLoading(false);
+        navigation.navigate('Wellcomescreen1');
+      }, 1500);
+
+    } catch (error) {
+      setLoading(false);
+      Alert.alert('Error', 'Something went wrong');
+    }
+  };
+
 
   return (
     <ImageBackground
@@ -44,28 +96,33 @@ const LoginScreen = () => {
         <CustomInput
           auth
           name="email"
-          value={email}
+          value={form.email}
           handleInput={handleInput}
         />
 
         <CustomInput
           auth
           name="password"
-          value={password}
+          value={form.password}
           secure={secure}
           setSecure={setSecure}
           handleInput={handleInput}
         />
 
         <TouchableOpacity style={styles.forgotWrapper}>
-          <Text style={styles.forgotText}>Forgot Password ?</Text>
+          <Text style={styles.forgotText}>Forgot Password?</Text>
         </TouchableOpacity>
 
         <View style={styles.btnWrapper}>
           <TouchableOpacity
             style={styles.Btn}
-            onPress={() => navigation.navigate('WellcomeScreen1')}>
-            <Text style={styles.btntext}>Submit</Text>
+            disabled={loading}
+            onPress={handleLogin}>
+            {loading ? (
+              <ActivityIndicator color={COLORS.black} />
+            ) : (
+              <Text style={styles.btntext}>Submit</Text>
+            )}
           </TouchableOpacity>
         </View>
 
@@ -73,7 +130,7 @@ const LoginScreen = () => {
           style={styles.bottomText}
           onPress={() => navigation.navigate('SignUp')}>
           Don’t have an account{' '}
-          <Text style={styles.signupText}>sign up</Text>
+          <Text style={styles.signupText}>Sign up</Text>
         </Text>
 
       </ScrollView>
@@ -82,7 +139,6 @@ const LoginScreen = () => {
 };
 
 export default LoginScreen;
-
 
 const styles = StyleSheet.create({
    container: {

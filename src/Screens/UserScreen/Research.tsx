@@ -30,8 +30,6 @@ const ResearchScreen = () => {
       resizeMode="cover"
     >
       <ScrollView showsVerticalScrollIndicator={false}>
-
-     
         <View style={styles.header}>
               <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
                      <Image source={IMAGES.user} style={styles.avatar} />
