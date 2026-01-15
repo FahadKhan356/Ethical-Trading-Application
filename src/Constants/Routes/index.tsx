@@ -1,4 +1,4 @@
 export const EndPoints = {
-  baseUrl: ``,
+  baseUrl: 'https://cognizantly-unpersonalising-anton.ngrok-free.dev',
 
 };
