@@ -14,6 +14,7 @@ import {IMAGES} from '../../Constants/IMAGES';
 import {COLORS} from '../../Constants/COLORS';
 import CustomInput from '../../Components/CustomInput';
 import {SignUpUserAPI} from '../../Store/Action/AuthAction';
+import styles from '../../styles/AuthScreen/SignUpStyles';
 
 const {width, height} = Dimensions.get('window');
 
@@ -111,62 +112,62 @@ const onSubmit = () => {
 export default SignUpScreen;
 
 
-const styles = StyleSheet.create({
-   container: {
-    flex: 1,
-    paddingHorizontal: width * 0.06,  
-    paddingTop: height * 0.080,       
-  },
+// const styles = StyleSheet.create({
+//    container: {
+//     flex: 1,
+//     paddingHorizontal: width * 0.06,  
+//     paddingTop: height * 0.080,       
+//   },
 
-  logoWrapper: {
-    alignItems: 'center',
-  },
+//   logoWrapper: {
+//     alignItems: 'center',
+//   },
 
-  logo: {
-    width: width * 0.48,               
-    height: height * 0.16,             
-    resizeMode: 'contain',
-  },
+//   logo: {
+//     width: width * 0.48,               
+//     height: height * 0.16,             
+//     resizeMode: 'contain',
+//   },
 
-  title: {
-    color: COLORS.white,
-    fontSize: width * 0.09,         
-    fontWeight: '600',
-    textAlign: 'center',
-    marginBottom: height * 0.07,        
-  },
+//   title: {
+//     color: COLORS.white,
+//     fontSize: width * 0.09,         
+//     fontWeight: '600',
+//     textAlign: 'center',
+//     marginBottom: height * 0.07,        
+//   },
 
-  bottomText: {
-    color: COLORS.white,
-    fontSize: width * 0.04,          
-    textAlign: 'center',
-    marginTop: height * 0.025,          
-  },
+//   bottomText: {
+//     color: COLORS.white,
+//     fontSize: width * 0.04,          
+//     textAlign: 'center',
+//     marginTop: height * 0.025,          
+//   },
 
-  signupText: {
-    fontWeight: '700',
-    textDecorationLine: 'underline',
-  },
+//   signupText: {
+//     fontWeight: '700',
+//     textDecorationLine: 'underline',
+//   },
 
-  btnWrapper: {
-    alignItems: 'center',
-    marginTop: height * 0.05,       
-  },
+//   btnWrapper: {
+//     alignItems: 'center',
+//     marginTop: height * 0.05,       
+//   },
 
-  Btn: {
-    width: width * 0.86,            
-    height: height * 0.058,            
-    backgroundColor: COLORS.white,
-    borderRadius: 25,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+//   Btn: {
+//     width: width * 0.86,            
+//     height: height * 0.058,            
+//     backgroundColor: COLORS.white,
+//     borderRadius: 25,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
 
-  btntext: {
-    color: COLORS.green2,
-    fontSize: width * 0.04,           
-    fontWeight: '600',
-  },
+//   btntext: {
+//     color: COLORS.green2,
+//     fontSize: width * 0.04,           
+//     fontWeight: '600',
+//   },
 
 
-});
+// });
