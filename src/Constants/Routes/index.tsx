@@ -1,5 +1,5 @@
 export const EndPoints = {
-  baseUrl: 'https://cognizantly-unpersonalising-anton.ngrok-free.dev/api', // 'https://cognizantly-unpersonalising-anton.ngrok-free.dev',
+  baseUrl: 'https://cognizantly-unpersonalising-anton.ngrok-free.dev/api',   //'https://cognizantly-unpersonalising-anton.ngrok-free.dev',
   
 
   signUp: '/auth/signup',

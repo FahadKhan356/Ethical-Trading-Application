@@ -1,13 +1,13 @@
-import { StyleSheet ,  Dimensions,} from "react-native";
+import { StyleSheet, Dimensions, } from "react-native";
 import { COLORS } from "../../Constants/COLORS";
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-   container: {
+  container: {
     flex: 1,
-    paddingHorizontal: width * 0.06,   
-    paddingTop: height * 0.080,        
+    paddingHorizontal: width * 0.06,
+    paddingTop: height * 0.080,
   },
 
   logoWrapper: {
@@ -15,45 +15,45 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: width * 0.48,                
-    height: height * 0.16,             
+    width: width * 0.48,
+    height: height * 0.16,
     resizeMode: 'contain',
   },
 
   logoText: {
     color: COLORS.white,
-    fontSize: width * 0.05,            
+    fontSize: width * 0.05,
     fontWeight: '700',
   },
 
   logoSubText: {
     color: COLORS.white,
-    fontSize: width * 0.03,            
+    fontSize: width * 0.03,
     letterSpacing: 1,
   },
 
   title: {
     color: COLORS.white,
-    fontSize: width * 0.09,            
+    fontSize: width * 0.09,
     fontWeight: '600',
     textAlign: 'center',
-    marginBottom: height * 0.07,        
+    marginBottom: height * 0.07,
     marginTop: height * 0.015,
   },
 
   forgotWrapper: {
     alignItems: 'flex-end',
-    marginBottom: height * 0.03,        
+    marginBottom: height * 0.03,
   },
 
   forgotText: {
     color: COLORS.white,
-    fontSize: width * 0.04,         
+    fontSize: width * 0.04,
   },
 
   bottomText: {
     color: COLORS.white,
-    fontSize: width * 0.04,          
+    fontSize: width * 0.04,
     textAlign: 'center',
     marginTop: height * 0.025,
   },
@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
   },
 
   Btn: {
-    width: width * 0.86,               
-    height: height * 0.058,             
+    width: width * 0.86,
+    height: height * 0.058,
     backgroundColor: COLORS.white,
     borderRadius: 30,
     alignItems: 'center',
@@ -78,10 +78,30 @@ const styles = StyleSheet.create({
 
   btntext: {
     color: COLORS.green2,
-    fontSize: width * 0.04,             
+    fontSize: width * 0.04,
     fontWeight: '600',
   },
+  socialBtnContainer: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 20
+  },
 
+  socialBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: height * 0.050,
+    width: width * 0.14,
+    paddingHorizontal: 12,
+    borderRadius: height * 0.050 * 0.25,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+    marginRight: width * 0.03,
+  },
+  socialBtnImage: {
+    height: 20,
+    width: 20,
+
+  }
 });
-
-export default styles
+export default styles;

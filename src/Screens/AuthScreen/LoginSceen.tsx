@@ -17,6 +17,8 @@ import {COLORS} from '../../Constants/COLORS';
 import CustomInput from '../../Components/CustomInput';
 import {LoginUserAPI} from '../../Store/Action/AuthAction';
 import styles from '../../styles/AuthScreen/LoginStyles';
+import SocialButton from '../../Components/SocialBtn';
+
 
 const {width, height} = Dimensions.get('window');
 
@@ -108,6 +110,16 @@ const LoginScreen = () => {
           Don’t have an account{' '}
           <Text style={styles.signupText}>Sign up</Text>
         </Text>
+         <View style={styles.socialBtnContainer}>
+
+       <SocialButton image={IMAGES.Google} onPress={()=>{}}/>
+         <SocialButton image={IMAGES.XTwitter} onPress={()=>{}}/>
+           <SocialButton image={IMAGES.Facebook} onPress={()=>{}}/>
+
+         </View>
+         
+         
+ 
 
       </ScrollView>
     </ImageBackground>

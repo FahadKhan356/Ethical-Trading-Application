@@ -3,7 +3,6 @@ import {View, StyleSheet, Image, Dimensions} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {ICONS} from '../Constants/IMAGES';
 import {COLORS} from '../Constants/COLORS';
-
 import HomeScreen from '../Screens/UserScreen/HomeScreen';
 import Portfolio from '../Screens/UserScreen/Portfolio';
 import AIAssistant from '../Screens/UserScreen/AIAssitant';
