@@ -16,6 +16,7 @@ import {IMAGES} from '../../Constants/IMAGES';
 import {COLORS} from '../../Constants/COLORS';
 import CustomInput from '../../Components/CustomInput';
 import {LoginUserAPI} from '../../Store/Action/AuthAction';
+import styles from '../../styles/AuthScreen/LoginStyles';
 
 const {width, height} = Dimensions.get('window');
 
@@ -116,83 +117,83 @@ const LoginScreen = () => {
 export default LoginScreen;
 
 
-const styles = StyleSheet.create({
-   container: {
-    flex: 1,
-    paddingHorizontal: width * 0.06,   
-    paddingTop: height * 0.080,        
-  },
+// const styles = StyleSheet.create({
+//    container: {
+//     flex: 1,
+//     paddingHorizontal: width * 0.06,   
+//     paddingTop: height * 0.080,        
+//   },
 
-  logoWrapper: {
-    alignItems: 'center',
-  },
+//   logoWrapper: {
+//     alignItems: 'center',
+//   },
 
-  logo: {
-    width: width * 0.48,                
-    height: height * 0.16,             
-    resizeMode: 'contain',
-  },
+//   logo: {
+//     width: width * 0.48,                
+//     height: height * 0.16,             
+//     resizeMode: 'contain',
+//   },
 
-  logoText: {
-    color: COLORS.white,
-    fontSize: width * 0.05,            
-    fontWeight: '700',
-  },
+//   logoText: {
+//     color: COLORS.white,
+//     fontSize: width * 0.05,            
+//     fontWeight: '700',
+//   },
 
-  logoSubText: {
-    color: COLORS.white,
-    fontSize: width * 0.03,            
-    letterSpacing: 1,
-  },
+//   logoSubText: {
+//     color: COLORS.white,
+//     fontSize: width * 0.03,            
+//     letterSpacing: 1,
+//   },
 
-  title: {
-    color: COLORS.white,
-    fontSize: width * 0.09,            
-    fontWeight: '600',
-    textAlign: 'center',
-    marginBottom: height * 0.07,        
-    marginTop: height * 0.015,
-  },
+//   title: {
+//     color: COLORS.white,
+//     fontSize: width * 0.09,            
+//     fontWeight: '600',
+//     textAlign: 'center',
+//     marginBottom: height * 0.07,        
+//     marginTop: height * 0.015,
+//   },
 
-  forgotWrapper: {
-    alignItems: 'flex-end',
-    marginBottom: height * 0.03,        
-  },
+//   forgotWrapper: {
+//     alignItems: 'flex-end',
+//     marginBottom: height * 0.03,        
+//   },
 
-  forgotText: {
-    color: COLORS.white,
-    fontSize: width * 0.04,         
-  },
+//   forgotText: {
+//     color: COLORS.white,
+//     fontSize: width * 0.04,         
+//   },
 
-  bottomText: {
-    color: COLORS.white,
-    fontSize: width * 0.04,          
-    textAlign: 'center',
-    marginTop: height * 0.025,
-  },
+//   bottomText: {
+//     color: COLORS.white,
+//     fontSize: width * 0.04,          
+//     textAlign: 'center',
+//     marginTop: height * 0.025,
+//   },
 
-  signupText: {
-    fontWeight: '700',
-    textDecorationLine: 'underline',
-  },
+//   signupText: {
+//     fontWeight: '700',
+//     textDecorationLine: 'underline',
+//   },
 
-  btnWrapper: {
-    alignItems: 'center',
-  },
+//   btnWrapper: {
+//     alignItems: 'center',
+//   },
 
-  Btn: {
-    width: width * 0.86,               
-    height: height * 0.058,             
-    backgroundColor: COLORS.white,
-    borderRadius: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+//   Btn: {
+//     width: width * 0.86,               
+//     height: height * 0.058,             
+//     backgroundColor: COLORS.white,
+//     borderRadius: 30,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
 
-  btntext: {
-    color: COLORS.green2,
-    fontSize: width * 0.04,             
-    fontWeight: '600',
-  },
+//   btntext: {
+//     color: COLORS.green2,
+//     fontSize: width * 0.04,             
+//     fontWeight: '600',
+//   },
 
-});
+// });

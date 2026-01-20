@@ -16,7 +16,9 @@ export const LoginUserAPI = async (
   setLoad(true);
 
   try {
-    const res = await API.post(EndPoints.login, data);
+    const res = await API.post('https://cognizantly-unpersonalising-anton.ngrok-free.dev/api/auth/login',
+      //EndPoints.login,  
+     data);
 
     console.log('Login Response ->', res?.data);
 
@@ -32,10 +34,11 @@ export const LoginUserAPI = async (
         routes: [{name: 'HomeScreen'}],
       });
     } else {
+      console.error('Login failed response -> ', res?.data)
       showError('Login failed');
     }
   } catch (err: any) {
-    console.error('LoginUserAPI error ->', err?.response?.data);
+    console.debug('LoginUserAPI error ->', err?.response?.data);
 
     showError(
       err?.response?.data?.error ||

@@ -1,0 +1,238 @@
+{
+  "info": {
+    "name": "QAF Backend API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for QAF Backend. Set collection variables: baseUrl (default http://localhost:3000/api), token (user JWT), adminToken (admin JWT)."
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000/api" },
+    { "key": "token", "value": "" },
+    { "key": "adminToken", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth","register"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"Passw0rd!\",\n  \"firstName\": \"Test\",\n  \"lastName\": \"User\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth","login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"Passw0rd!\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": { "raw": "{{baseUrl}}/auth/logout", "host": ["{{baseUrl}}"], "path": ["auth","logout"] }
+          }
+        },
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": { "raw": "{{baseUrl}}/auth/me", "host": ["{{baseUrl}}"], "path": ["auth","me"] }
+          }
+        },
+        {
+          "name": "Google Login (Browser Only)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { 
+              "raw": "{{baseUrl}}/auth/google", 
+              "host": ["{{baseUrl}}"], 
+              "path": ["auth","google"] 
+            },
+            "description": "Initiates Google OAuth flow. Open this URL in a browser. After Google login, you'll be redirected to frontend with a JWT token in the URL query parameter."
+          }
+        },
+        {
+          "name": "Google Callback (Automatic)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { 
+              "raw": "{{baseUrl}}/auth/google/callback", 
+              "host": ["{{baseUrl}}"], 
+              "path": ["auth","google","callback"] 
+            },
+            "description": "This endpoint is called automatically by Google after user authorization. Don't call this manually. It redirects to frontend with token."
+          }
+        },
+        {
+          "name": "Request Password Reset",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { 
+              "raw": "{{baseUrl}}/auth/request-reset", 
+              "host": ["{{baseUrl}}"], 
+              "path": ["auth","request-reset"] 
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\"\n}"
+            },
+            "description": "Request a password reset. Returns a reset token (in dev only - production sends via email). Use the token in Reset Password endpoint."
+          }
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": { 
+              "raw": "{{baseUrl}}/auth/reset-password", 
+              "host": ["{{baseUrl}}"], 
+              "path": ["auth","reset-password"] 
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"<reset-token-from-request-reset>\",\n  \"newPassword\": \"NewPassw0rd!\"\n}"
+            },
+            "description": "Reset password using the token from Request Password Reset endpoint. Token is valid for 1 hour."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "auth": { "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string" } ] },
+      "item": [
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": { "raw": "{{baseUrl}}/users/me", "host": ["{{baseUrl}}"], "path": ["users","me"] }
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PATCH",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" } ],
+            "url": { "raw": "{{baseUrl}}/users/me", "host": ["{{baseUrl}}"], "path": ["users","me"] },
+            "body": { "mode": "raw", "raw": "{\n  \"firstName\": \"New\",\n  \"lastName\": \"Name\"\n}" }
+          }
+        },
+        {
+          "name": "My Badges",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": { "raw": "{{baseUrl}}/users/me/badges", "host": ["{{baseUrl}}"], "path": ["users","me","badges"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "auth": { "type": "bearer", "bearer": [ { "key": "token", "value": "{{adminToken}}", "type": "string" } ] },
+      "item": [
+        {"name": "Stats","request": {"method": "GET","header": [ {"key":"Authorization","value":"Bearer {{adminToken}}"} ],"url": {"raw": "{{baseUrl}}/admin/stats","host": ["{{baseUrl}}"],"path": ["admin","stats"]}}},
+        {"name": "Users","request": {"method": "GET","header": [ {"key":"Authorization","value":"Bearer {{adminToken}}"} ],"url": {"raw": "{{baseUrl}}/admin/users?limit=20&offset=0","host": ["{{baseUrl}}"],"path": ["admin","users"],"query":[{"key":"limit","value":"20"},{"key":"offset","value":"0"}]}}},
+        {"name": "Update User Role","request": {"method": "PATCH","header": [ {"key":"Authorization","value":"Bearer {{adminToken}}"}, {"key":"Content-Type","value":"application/json"} ],"url": {"raw": "{{baseUrl}}/admin/users/<userId>/role","host": ["{{baseUrl}}"],"path": ["admin","users","<userId>","role"]},"body": {"mode":"raw","raw":"{\n  \"role\": \"admin\"\n}"}}},
+        {"name": "AI Logs","request": {"method": "GET","header": [ {"key":"Authorization","value":"Bearer {{adminToken}}"} ],"url": {"raw": "{{baseUrl}}/admin/ai-logs?limit=50","host": ["{{baseUrl}}"],"path": ["admin","ai-logs"],"query":[{"key":"limit","value":"50"}]}}},
+        {"name": "Verify Project","request": {"method": "PATCH","header": [ {"key":"Authorization","value":"Bearer {{adminToken}}"} ],"url": {"raw": "{{baseUrl}}/admin/community/projects/<projectId>/verify","host": ["{{baseUrl}}"],"path": ["admin","community","projects","<projectId>","verify"]}}}
+      ]
+    },
+    {
+      "name": "Companies",
+      "auth": { "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string" } ] },
+      "item": [
+        {"name": "List","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/companies?sector=Tech&search=apple&limit=20&offset=0","host":["{{baseUrl}}"],"path":["companies"],"query":[{"key":"sector","value":"Tech"},{"key":"search","value":"apple"},{"key":"limit","value":"20"},{"key":"offset","value":"0"}]}}},
+        {"name": "Detail","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/companies/<companyId>","host":["{{baseUrl}}"],"path":["companies","<companyId>"]}}},
+        {"name": "Prices","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/companies/<companyId>/prices?startDate=2024-01-01&endDate=2024-12-31","host":["{{baseUrl}}"],"path":["companies","<companyId>","prices"],"query":[{"key":"startDate","value":"2024-01-01"},{"key":"endDate","value":"2024-12-31"}]}}},
+        {"name": "Financials","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/companies/<companyId>/financials","host":["{{baseUrl}}"],"path":["companies","<companyId>","financials"]}}},
+        {"name": "Create","request": {"method":"POST","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"url": {"raw":"{{baseUrl}}/companies","host":["{{baseUrl}}"],"path":["companies"]},"body":{"mode":"raw","raw":"{\n  \"ticker\": \"TEST\",\n  \"name\": \"Test Co\"\n}"}}},
+        {"name": "Update","request": {"method":"PATCH","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"url": {"raw":"{{baseUrl}}/companies/<companyId>","host":["{{baseUrl}}"],"path":["companies","<companyId>"]},"body":{"mode":"raw","raw":"{\n  \"sector\": \"Tech\"\n}"}}}
+      ]
+    },
+    {
+      "name": "ESG",
+      "auth": { "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string" } ] },
+      "item": [
+        {"name": "Company ESG","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/esg/company/<companyId>","host":["{{baseUrl}}"],"path":["esg","company","<companyId>"]}}},
+        {"name": "Latest ESG","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/esg/company/<companyId>/latest","host":["{{baseUrl}}"],"path":["esg","company","<companyId>","latest"]}}}
+      ]
+    },
+    {
+      "name": "Filings",
+      "auth": { "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string" } ] },
+      "item": [
+        {"name": "Company Filings","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/filings/company/<companyId>?type=10-K&limit=5","host":["{{baseUrl}}"],"path":["filings","company","<companyId>"],"query":[{"key":"type","value":"10-K"},{"key":"limit","value":"5"}]}}},
+        {"name": "Filing Detail","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/filings/<filingId>","host":["{{baseUrl}}"],"path":["filings","<filingId>"]}}}
+      ]
+    },
+    {
+      "name": "News",
+      "auth": { "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string" } ] },
+      "item": [
+        {"name": "Latest","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/news?limit=20","host":["{{baseUrl}}"],"path":["news"],"query":[{"key":"limit","value":"20"}]}}},
+        {"name": "Company News","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/news/company/<companyId>?limit=10","host":["{{baseUrl}}"],"path":["news","company","<companyId>"],"query":[{"key":"limit","value":"10"}]}}}
+      ]
+    },
+    {
+      "name": "Portfolios",
+      "auth": { "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string" } ] },
+      "item": [
+        {"name": "List","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/portfolios","host":["{{baseUrl}}"],"path":["portfolios"]}}},
+        {"name": "Detail","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/portfolios/<portfolioId>","host":["{{baseUrl}}"],"path":["portfolios","<portfolioId>"]}}},
+        {"name": "Create","request": {"method":"POST","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"url": {"raw":"{{baseUrl}}/portfolios","host":["{{baseUrl}}"],"path":["portfolios"]},"body":{"mode":"raw","raw":"{\n  \"name\": \"My Portfolio\",\n  \"cashBalance\": 10000\n}"}}},
+        {"name": "Update","request": {"method":"PATCH","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"url": {"raw":"{{baseUrl}}/portfolios/<portfolioId>","host":["{{baseUrl}}"],"path":["portfolios","<portfolioId>"]},"body":{"mode":"raw","raw":"{\n  \"name\": \"Updated\"\n}"}}},
+        {"name": "Add Asset","request": {"method":"POST","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"url": {"raw":"{{baseUrl}}/portfolios/<portfolioId>/assets","host":["{{baseUrl}}"],"path":["portfolios","<portfolioId>","assets"]},"body":{"mode":"raw","raw":"{\n  \"companyId\": \"<companyId>\",\n  \"quantity\": 10,\n  \"averageCost\": 50\n}"}}},
+        {"name": "Remove Asset","request": {"method":"DELETE","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/portfolios/<portfolioId>/assets/<assetId>","host":["{{baseUrl}}"],"path":["portfolios","<portfolioId>","assets","<assetId>"]}}},
+        {"name": "Recalculate","request": {"method":"POST","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/portfolios/<portfolioId>/recalculate","host":["{{baseUrl}}"],"path":["portfolios","<portfolioId>","recalculate"]}}}
+      ]
+    },
+    {
+      "name": "Community",
+      "auth": { "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string" } ] },
+      "item": [
+        {"name": "Projects List","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/community/projects?category=climate&verified=true","host":["{{baseUrl}}"],"path":["community","projects"],"query":[{"key":"category","value":"climate"},{"key":"verified","value":"true"}]}}},
+        {"name": "Project Detail","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/community/projects/<projectId>","host":["{{baseUrl}}"],"path":["community","projects","<projectId>"]}}},
+        {"name": "Create Project","request": {"method":"POST","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"url": {"raw":"{{baseUrl}}/community/projects","host":["{{baseUrl}}"],"path":["community","projects"]},"body":{"mode":"raw","raw":"{\n  \"name\": \"Tree Planting\",\n  \"description\": \"Impact project\",\n  \"category\": \"climate\",\n  \"targetAmount\": 100000,\n  \"impactMetric\": \"trees\"\n}"}}},
+        {"name": "Allocations List","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/community/allocations","host":["{{baseUrl}}"],"path":["community","allocations"]}}},
+        {"name": "Allocate Funds","request": {"method":"POST","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"url": {"raw":"{{baseUrl}}/community/allocations","host":["{{baseUrl}}"],"path":["community","allocations"]},"body":{"mode":"raw","raw":"{\n  \"projectId\": \"<projectId>\",\n  \"amount\": 100,\n  \"percentage\": 10\n}"}}}
+      ]
+    },
+    {
+      "name": "Badges",
+      "auth": { "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string" } ] },
+      "item": [
+        {"name": "All Badges","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/badges","host":["{{baseUrl}}"],"path":["badges"]}}},
+        {"name": "My Badges","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/badges/me","host":["{{baseUrl}}"],"path":["badges","me"]}}},
+        {"name": "Check/Award","request": {"method":"POST","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/badges/check","host":["{{baseUrl}}"],"path":["badges","check"]}}}
+      ]
+    },
+    {
+      "name": "Scorecards",
+      "auth": { "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string" } ] },
+      "item": [
+        {"name": "Current","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/scorecards/company/<companyId>","host":["{{baseUrl}}"],"path":["scorecards","company","<companyId>"]}}},
+        {"name": "History","request": {"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url": {"raw":"{{baseUrl}}/scorecards/company/<companyId>/history","host":["{{baseUrl}}"],"path":["scorecards","company","<companyId>","history"]}}}
+      ]
+    }
+  ]
+}
