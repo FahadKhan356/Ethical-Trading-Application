@@ -17,6 +17,7 @@ import LoginScreen from '../Screens/AuthScreen/LoginSceen';
 import SignUp from '../Screens/AuthScreen/SignUp';
 import BottomNavigation from './BottomNavigation';
 import ProfileScreen from '../Screens/UserScreen/ProfileScreen';
+import EditProfileScreen from '../Screens/UserScreen/EditProfileScreen';
 
 type Props = {
   isLoggedIn: boolean;
@@ -50,6 +51,7 @@ const UserNavigation: React.FC<Props> = ({isLoggedIn}) => {
       <Stack.Screen name="MicroSoft" component={MicroSoftScreen} />
       <Stack.Screen name="Achevement" component={AchevementScreen} />
       <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+       <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
     </Stack.Navigator>
   );
 };

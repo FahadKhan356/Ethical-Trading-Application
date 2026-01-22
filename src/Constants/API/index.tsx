@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {store} from '../../Store/store';
-import {logOut} from '../../Store/Reducers/AuthReducer';
-import {EndPoints} from '../Routes';
+import { store } from '../../Store/store';
+import { logOut } from '../../Store/Reducers/AuthReducer';
+import { EndPoints } from '../Routes';
 
 const API = axios.create({
   baseURL: EndPoints.baseUrl,
@@ -11,11 +11,26 @@ const API = axios.create({
 API.interceptors.request.use(
   async config => {
     const {
-      auth: {tokenId},
+      auth: { tokenId },
     } = store.getState();
+ //debuging logout header
+    if (config.url?.includes('logout')) {
+      console.log('🔐 Logout API Token ->', tokenId);
+      console.log(
+        '📤 Logout Authorization Header BEFORE ->',
+        config.headers?.Authorization
+      );
+    }
 
     if (tokenId) {
       config.headers['Authorization'] = `Bearer ${tokenId}`;
+    }
+    //debuging logout header 
+    if (config.url?.includes('logout')) {
+      console.log(
+        '📤 Logout Authorization Header AFTER ->',
+        config.headers?.Authorization
+      );
     }
 
     const method = (config.method || '').toLowerCase();
@@ -30,22 +45,36 @@ API.interceptors.request.use(
       }
     }
     config.headers['Accept'] = 'application/json';
+    // config.headers.set('Authorization', `Bearer ${tokenId}`);
 
     return config;
   },
   error => Promise.reject(error),
 );
-
 API.interceptors.response.use(
-  response => response,
-  error => {
-    if (error.response?.status === 401) {
-      console.warn('Unauthorized! Logging out...');
+  res => res,
+  err => {
+    const isLogoutCall = err.config?.url?.includes('logout');
+
+    if (err.response?.status === 401 && !isLogoutCall) {
       store.dispatch(logOut());
     }
-    return Promise.reject(error);
-  },
+
+    return Promise.reject(err);
+  }
 );
+
+
+// API.interceptors.response.use(
+//   response => response,
+//   error => {
+//     if (error.response?.status === 401) {
+//       console.warn('Unauthorized! Logging out...');
+//       store.dispatch(logOut());
+//     }
+//     return Promise.reject(error);
+//   },
+// );
 
 // const BASE_URL = EndPoints.baseUrl;
 

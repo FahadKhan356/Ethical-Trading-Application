@@ -59,6 +59,37 @@ const styles = StyleSheet.create({
     fontSize: width * 0.04,           
     fontWeight: '600',
   },
+  socialBtnContainer: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 20, gap:30
+  },
+
+  socialBtn: {
+    flexDirection: 'row',
+    
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    width: 50,
+    paddingHorizontal: 12,
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+  },
+
+  orText:{
+    color: COLORS.white,
+    fontSize: width * 0.04,
+    textAlign: 'center',
+    marginTop: height * 0.025,
+    fontWeight: '600',
+  },
+
+  socialBtnImage: {
+    height: 20,
+    width: 20,
+
+  }
 
 
 });

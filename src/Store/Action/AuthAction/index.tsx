@@ -1,7 +1,7 @@
 import API from '../../../Constants/API';
 import {showError, showSuccess} from '../../../Constants/FlashMessage';
 import {EndPoints} from '../../../Constants/Routes';
-import {store} from '../../store';
+import {store} from '../../../Store/store';
 import {
   setLoginUser,
   setTokenId,
@@ -16,14 +16,15 @@ export const LoginUserAPI = async (
   setLoad(true);
 
   try {
-    const res = await API.post('https://cognizantly-unpersonalising-anton.ngrok-free.dev/api/auth/login',
-      //EndPoints.login,  
+    const res = await API.post(
+      EndPoints.login,  
      data);
 
     console.log('Login Response ->', res?.data);
 
-    if (res?.status === 200 && res?.data?.token) {
-      store.dispatch(setTokenId(res.data.token));
+    if (res?.status === 201 || res?.status === 200) {
+      console.log('Login Response new ->', res?.data.access_token);
+      store.dispatch(setTokenId(res.data.access_token));
       store.dispatch(setUserDetails(res.data.user));
       store.dispatch(setLoginUser());
 
@@ -33,9 +34,11 @@ export const LoginUserAPI = async (
         index: 0,
         routes: [{name: 'HomeScreen'}],
       });
-    } else {
-      console.error('Login failed response -> ', res?.data)
-      showError('Login failed');
+    } 
+    else {
+       console.log('Login Response new 1 ->', res?.data.token);
+       console.log('Response ->', res.status, res.data);
+      showError('Login failed ');
     }
   } catch (err: any) {
     console.debug('LoginUserAPI error ->', err?.response?.data);
@@ -47,6 +50,7 @@ export const LoginUserAPI = async (
     );
   } finally {
     setLoad(false);
+    
   }
 };
 
@@ -61,7 +65,7 @@ export const SignUpUserAPI = async (
   try {
     const res = await API.post(EndPoints.signUp, data);
 
-    if (res?.status === 200) {
+    if (res?.status === 200 || res?.status === 201) {
       showSuccess('Register Successfully');
       navigation.navigate('HomeScreen');
     } else {
@@ -77,20 +81,28 @@ export const SignUpUserAPI = async (
 
 
 export const LogoutUserAPI = async () => {
-  return API.post(EndPoints.logout);
+  // return API.post(EndPoints.logout);
+  try {
+    return await API.post(EndPoints.logout);
+  } catch (err: any) {
+    if (err?.response?.status === 401) {
+      return null; // ignore
+    }
+    throw err;
+  }
 };
 
 
-export const SearchCompanyAPI = async (
-  query: string,
-  limit = 10,
-  offset = 0,
-) => {
-  const res = await API.get(
-    `${EndPoints.company}?query=${query}&limit=${limit}&offset=${offset}`,
-  );
+// export const SearchCompanyAPI = async (
+//   query: string,
+//   limit = 10,
+//   offset = 0,
+// ) => {
+//   const res = await API.get(
+//     `${EndPoints.company}?query=${query}&limit=${limit}&offset=${offset}`,
+//   );
 
-  return res?.data;
-};
+//   return res?.data;
+// };
 
 

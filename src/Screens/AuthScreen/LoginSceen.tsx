@@ -52,7 +52,7 @@ const LoginScreen = () => {
     if (!validateForm()) return;
 
     console.log('Login Payload ->', form);
-
+// navigation.navigate('HomeScreen');
    
     LoginUserAPI(form, setLoading, navigation);
   };
@@ -110,6 +110,9 @@ const LoginScreen = () => {
           Don’t have an account{' '}
           <Text style={styles.signupText}>Sign up</Text>
         </Text>
+          
+          <Text style={[styles.orText, {marginTop: 20}]}>Or</Text>
+
          <View style={styles.socialBtnContainer}>
 
        <SocialButton image={IMAGES.Google} onPress={()=>{}}/>

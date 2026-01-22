@@ -19,8 +19,9 @@ export const IMAGES = {
 };
 
 export const ICONS = {
+  openEye: require('../Assets/Icons/showPassword.png'),
   backarrow: require('../Assets/Icons/backarrow.png'),
-  Arrow2: require('../Assets/Icons/Arrow2.png'),
+  EditIcon: require('../Assets/Icons/edit.png'),
   forbesion: require('../Assets/Icons/forbesicon.png'),
   Gibesicon: require('../Assets/Icons/Gibesicon.png'),
   Bell: require('../Assets/Icons/bell.png'),

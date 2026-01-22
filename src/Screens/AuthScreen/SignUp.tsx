@@ -15,6 +15,7 @@ import {COLORS} from '../../Constants/COLORS';
 import CustomInput from '../../Components/CustomInput';
 import {SignUpUserAPI} from '../../Store/Action/AuthAction';
 import styles from '../../styles/AuthScreen/SignUpStyles';
+import SocialButton from '../../Components/SocialBtn';
 
 const {width, height} = Dimensions.get('window');
 
@@ -46,8 +47,8 @@ const onSubmit = () => {
   const payload = {
     email: email,
     password: password,
-    givenName: 'John',
-    familyName: 'Doe',
+    firstName: email.split('@')[0],
+    lastName: '',
   };
 
   console.log('Signup Payload ->', payload);
@@ -103,6 +104,16 @@ const onSubmit = () => {
             <Text style={styles.signupText}>Sign In</Text>
           </Text>
         </TouchableOpacity>
+
+        <Text style={[styles.orText, {marginTop: 20}]}>Or</Text>
+
+         <View style={styles.socialBtnContainer}>
+
+       <SocialButton image={IMAGES.Google} onPress={()=>{}}/>
+         <SocialButton image={IMAGES.XTwitter} onPress={()=>{}}/>
+           <SocialButton image={IMAGES.Facebook} onPress={()=>{}}/>
+
+         </View>
 
       </ScrollView>
     </ImageBackground>

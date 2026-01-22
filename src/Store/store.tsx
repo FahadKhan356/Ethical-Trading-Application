@@ -4,9 +4,10 @@ import RootReducer from '../Store';
 import {configureStore} from '@reduxjs/toolkit';
 
 const persistConfig = {
-  key: 'root',
+  key: 'root-V2',
   version: 1,
   storage: AsyncStorage,
+  whitelist: ['auth'],
 };
 
 const persistedReducer = persistReducer(persistConfig, RootReducer);

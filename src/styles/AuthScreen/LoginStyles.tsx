@@ -82,22 +82,31 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   socialBtnContainer: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 20
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 20, gap:30
   },
 
   socialBtn: {
     flexDirection: 'row',
+    
     alignItems: 'center',
     justifyContent: 'center',
-    height: height * 0.050,
-    width: width * 0.14,
+    height: 50,
+    width: 50,
     paddingHorizontal: 12,
-    borderRadius: height * 0.050 * 0.25,
+    borderRadius: 10,
     backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#E0E0E0',
-    marginRight: width * 0.03,
   },
+
+  orText:{
+    color: COLORS.white,
+    fontSize: width * 0.04,
+    textAlign: 'center',
+    marginTop: height * 0.025,
+    fontWeight: '600',
+  },
+
   socialBtnImage: {
     height: 20,
     width: 20,

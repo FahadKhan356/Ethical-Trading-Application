@@ -15,7 +15,7 @@ import { IMAGES, ICONS } from '../../Constants/IMAGES';
 import { COLORS } from '../../Constants/COLORS';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import { SearchCompanyAPI } from '../../Store/Action/AuthAction';
+// import { SearchCompanyAPI } from '../../Store/Action/AuthAction';
 import Loader from '../../Components/Loader';
 
 
@@ -30,23 +30,25 @@ const HomeScreen = () => {
   const [companies, setCompanies] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
+//  const fetchCompanies = async () => {
+//     try {
+//       setLoading(true);
+//       const res = await SearchCompanyAPI('popular', 10, 0);
+
+//       setCompanies(res?.items || []);
+//     } catch (error) {
+//       console.log('Company API error ->', error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
   useEffect(() => {
-    fetchCompanies();
+    // fetchCompanies();
     console.log('HomeScreen mounted → fetching companies');
   }, []);
 
-  const fetchCompanies = async () => {
-    try {
-      setLoading(true);
-      const res = await SearchCompanyAPI('popular', 10, 0);
-
-      setCompanies(res?.items || []);
-    } catch (error) {
-      console.log('Company API error ->', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+ 
 
   return (
     <ImageBackground source={IMAGES.Homebg3} style={styles.container}>
