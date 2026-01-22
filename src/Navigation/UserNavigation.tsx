@@ -18,6 +18,10 @@ import SignUp from '../Screens/AuthScreen/SignUp';
 import BottomNavigation from './BottomNavigation';
 import ProfileScreen from '../Screens/UserScreen/ProfileScreen';
 import EditProfileScreen from '../Screens/UserScreen/EditProfileScreen';
+import EmailProvider from '../Screens/ForgetPassword/EmailProvider';
+import OtpVerification from '../Screens/ForgetPassword/OtpVerification';
+import UpdatePassword from '../Screens/ForgetPassword/UpdatePassword';
+import PasswordUpdated from '../Screens/ForgetPassword/PasswordUpdated';
 
 type Props = {
   isLoggedIn: boolean;
@@ -52,6 +56,15 @@ const UserNavigation: React.FC<Props> = ({isLoggedIn}) => {
       <Stack.Screen name="Achevement" component={AchevementScreen} />
       <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
        <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
+{/* Forget Password Screens */}
+
+<Stack.Screen name="EmailProvider" component={EmailProvider} />
+<Stack.Screen name="OtpVerification" component={OtpVerification} />
+<Stack.Screen name="UpdatePassword" component={UpdatePassword} />
+<Stack.Screen name="PasswordUpdated" component={PasswordUpdated} />
+
+
+
     </Stack.Navigator>
   );
 };

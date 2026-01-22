@@ -18,6 +18,7 @@ import CustomInput from '../../Components/CustomInput';
 import {LoginUserAPI} from '../../Store/Action/AuthAction';
 import styles from '../../styles/AuthScreen/LoginStyles';
 import SocialButton from '../../Components/SocialBtn';
+import EmailProvider from '../ForgetPassword/EmailProvider';
 
 
 const {width, height} = Dimensions.get('window');
@@ -56,6 +57,9 @@ const LoginScreen = () => {
    
     LoginUserAPI(form, setLoading, navigation);
   };
+  const navigateToForgotPassword = () => {
+    navigation.navigate("EmailProvider");
+  };
 
   return (
     <ImageBackground
@@ -87,7 +91,7 @@ const LoginScreen = () => {
           handleInput={handleInput}
         />
 
-        <TouchableOpacity style={styles.forgotWrapper}>
+        <TouchableOpacity style={styles.forgotWrapper} onPress={navigateToForgotPassword}>
           <Text style={styles.forgotText}>Forgot Password?</Text>
         </TouchableOpacity>
 

@@ -16,6 +16,8 @@ export const IMAGES = {
   Google: require('../Assets/Images/Google.png'),
   XTwitter: require('../Assets/Images/XTwitter.png'),
   Facebook: require('../Assets/Images/Facebook.png'),
+  ForgetPassWord: require('../Assets/Images/ForgetPassword.png'),
+ 
 };
 
 export const ICONS = {

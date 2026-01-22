@@ -62,6 +62,13 @@ const userEmail = user?.email ?? 'No email available';
 
       showError('Logout Failed: Something went wrong while logging out');
     }
+    //temprary block until api fixed
+    finally{
+       navigation.reset({
+        index: 0,
+        routes: [{ name: 'LoginScreen' }],
+      });
+    }
 
   };
 

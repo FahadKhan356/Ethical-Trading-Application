@@ -152,6 +152,7 @@ const [showNewPassword, setShowNewPassword] = useState(false);
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
+
   passwordContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -173,6 +174,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   header: { marginTop: 50, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 15 },
+  
   backBtn: { padding: 10 },
   backIcon: { width: 24, height: 24, tintColor: 'white' },
   headerTitle: { color: 'white', fontSize: 20, fontWeight: 'bold', textTransform: 'capitalize' },
