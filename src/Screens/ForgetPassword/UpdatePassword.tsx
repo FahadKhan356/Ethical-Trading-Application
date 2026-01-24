@@ -18,7 +18,7 @@ const UpdatePassword = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [secure, setPasSecure] = useState(true);
-      const [NewPassecure, setNewPasSecure] = useState(true);
+    const [NewPassecure, setNewPasSecure] = useState(true);
 
     return (
         <ImageBackground style={styles.ImageBackgrounStyle} source={IMAGES.home2bg}>

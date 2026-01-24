@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -11,17 +11,17 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {IMAGES} from '../../Constants/IMAGES';
-import {COLORS} from '../../Constants/COLORS';
+import { useNavigation } from '@react-navigation/native';
+import { IMAGES } from '../../Constants/IMAGES';
+import { COLORS } from '../../Constants/COLORS';
 import CustomInput from '../../Components/CustomInput';
-import {LoginUserAPI} from '../../Store/Action/AuthAction';
+import { LoginUserAPI } from '../../Store/Action/AuthAction';
 import styles from '../../styles/AuthScreen/LoginStyles';
 import SocialButton from '../../Components/SocialBtn';
 import EmailProvider from '../ForgetPassword/EmailProvider';
 
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const LoginScreen = () => {
   const navigation = useNavigation<any>();
@@ -41,7 +41,7 @@ const LoginScreen = () => {
   };
 
   const validateForm = () => {
-    const {email, password} = form;
+    const { email, password } = form;
     if (!email || !password) {
       Alert.alert('Error', 'Please fill in all fields');
       return false;
@@ -53,10 +53,11 @@ const LoginScreen = () => {
     if (!validateForm()) return;
 
     console.log('Login Payload ->', form);
-// navigation.navigate('HomeScreen');
-   
+    // navigation.navigate('HomeScreen');
+
     LoginUserAPI(form, setLoading, navigation);
   };
+  
   const navigateToForgotPassword = () => {
     navigation.navigate("EmailProvider");
   };
@@ -114,19 +115,19 @@ const LoginScreen = () => {
           Don’t have an account{' '}
           <Text style={styles.signupText}>Sign up</Text>
         </Text>
-          
-          <Text style={[styles.orText, {marginTop: 20}]}>Or</Text>
 
-         <View style={styles.socialBtnContainer}>
+        <Text style={[styles.orText, { marginTop: 20 }]}>Or</Text>
 
-       <SocialButton image={IMAGES.Google} onPress={()=>{}}/>
-         <SocialButton image={IMAGES.XTwitter} onPress={()=>{}}/>
-           <SocialButton image={IMAGES.Facebook} onPress={()=>{}}/>
+        <View style={styles.socialBtnContainer}>
 
-         </View>
-         
-         
- 
+          <SocialButton image={IMAGES.Google} onPress={() => { }} />
+          <SocialButton image={IMAGES.XTwitter} onPress={() => { }} />
+          <SocialButton image={IMAGES.Facebook} onPress={() => { }} />
+
+        </View>
+
+
+
 
       </ScrollView>
     </ImageBackground>
@@ -139,8 +140,8 @@ export default LoginScreen;
 // const styles = StyleSheet.create({
 //    container: {
 //     flex: 1,
-//     paddingHorizontal: width * 0.06,   
-//     paddingTop: height * 0.080,        
+//     paddingHorizontal: width * 0.06,
+//     paddingTop: height * 0.080,
 //   },
 
 //   logoWrapper: {
@@ -148,45 +149,45 @@ export default LoginScreen;
 //   },
 
 //   logo: {
-//     width: width * 0.48,                
-//     height: height * 0.16,             
+//     width: width * 0.48,
+//     height: height * 0.16,
 //     resizeMode: 'contain',
 //   },
 
 //   logoText: {
 //     color: COLORS.white,
-//     fontSize: width * 0.05,            
+//     fontSize: width * 0.05,
 //     fontWeight: '700',
 //   },
 
 //   logoSubText: {
 //     color: COLORS.white,
-//     fontSize: width * 0.03,            
+//     fontSize: width * 0.03,
 //     letterSpacing: 1,
 //   },
 
 //   title: {
 //     color: COLORS.white,
-//     fontSize: width * 0.09,            
+//     fontSize: width * 0.09,
 //     fontWeight: '600',
 //     textAlign: 'center',
-//     marginBottom: height * 0.07,        
+//     marginBottom: height * 0.07,
 //     marginTop: height * 0.015,
 //   },
 
 //   forgotWrapper: {
 //     alignItems: 'flex-end',
-//     marginBottom: height * 0.03,        
+//     marginBottom: height * 0.03,
 //   },
 
 //   forgotText: {
 //     color: COLORS.white,
-//     fontSize: width * 0.04,         
+//     fontSize: width * 0.04,
 //   },
 
 //   bottomText: {
 //     color: COLORS.white,
-//     fontSize: width * 0.04,          
+//     fontSize: width * 0.04,
 //     textAlign: 'center',
 //     marginTop: height * 0.025,
 //   },
@@ -201,8 +202,8 @@ export default LoginScreen;
 //   },
 
 //   Btn: {
-//     width: width * 0.86,               
-//     height: height * 0.058,             
+//     width: width * 0.86,
+//     height: height * 0.058,
 //     backgroundColor: COLORS.white,
 //     borderRadius: 30,
 //     alignItems: 'center',
@@ -211,7 +212,7 @@ export default LoginScreen;
 
 //   btntext: {
 //     color: COLORS.green2,
-//     fontSize: width * 0.04,             
+//     fontSize: width * 0.04,
 //     fontWeight: '600',
 //   },
 

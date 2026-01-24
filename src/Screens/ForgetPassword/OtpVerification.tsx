@@ -6,18 +6,29 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import OTPTextInput from 'react-native-otp-textinput'; // <-- Import the library
 import styles from '../../styles/ForgetPassword/OtpVerificationStyles';
+import { useSelector } from 'react-redux';
+import { showError } from '../../Constants/FlashMessage';
 
 const { width, height } = Dimensions.get('window');
 
 const OtpVerification = () => {
-  const fakeOtp= '123456'; // For testing purposes
+     const generatedOtp = useSelector((state: any) => state.auth.otp);
+  
     const navigation = useNavigation<any>();
     const [otp, setOtp] = useState('');
     const [loader, setLoader] = useState(false);
 
   
     const handleOtp=()=>{
-     if(otp===fakeOtp){
+        if(otp.length<6){
+            showError('Please enter a valid 6-digit OTP.');
+            return;
+        }
+        if(otp==null || otp===''){
+            showError('OTP cannot be empty.');
+            return;
+        }
+     if(otp===generatedOtp){
         navigation.navigate('UpdatePassword');
      }else{
         Alert.alert('Invalid OTP! Please try again.');

@@ -129,7 +129,7 @@ const HomeScreen = () => {
 
                       <TouchableOpacity style={styles.cardArrow} onPress={()=>navigation.navigate('Portfolio')}>
                         <Image
-                          source={ICONS.Arrow2}
+                          source={ICONS.Arrow3}
                           style={styles.cardArrowIcon}
                         />
                       </TouchableOpacity>

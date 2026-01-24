@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, Image, TextInput } from 'react-native'
+import { ImageBackground, StyleSheet, View, Text, TouchableOpacity, Image, TextInput, ActivityIndicator } from 'react-native'
 import { IMAGES } from '../../Constants/IMAGES';
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from '@react-navigation/native';
@@ -7,6 +7,7 @@ import { COLORS } from '../../Constants/COLORS';
 import { Dimensions } from 'react-native';
 import CustomInput from '../../Components/CustomInput';
 import styles from '../../styles/ForgetPassword/EmailProviderStyles';
+import { ForgotPasswordAPI } from '../../Store/Action/AuthAction';
 
 const { width, height } = Dimensions.get('window');
 
@@ -20,6 +21,12 @@ export type RootStackParamList = {
 };
 
 const EmailProvider = () => {
+
+    const [ loader, setLoader]=useState(false);
+    const handleSendOtp=()=>{
+ ForgotPasswordAPI(email,setLoader,navigation);
+    }
+
 
    const [email, setEmail] = useState('');
     const navigation = useNavigation<any>();
@@ -61,8 +68,11 @@ const EmailProvider = () => {
 
  
    
-        <TouchableOpacity style={styles.nextBtn} onPress={() => navigation.navigate('OtpVerification')}>
- <Text style={styles.nextText}>Next</Text>
+        <TouchableOpacity style={styles.nextBtn} onPress={handleSendOtp}>
+            {loader ? (
+                          <ActivityIndicator color={COLORS.black} />
+                        ) : (
+ <Text style={styles.nextText}>Next</Text>)}
         </TouchableOpacity>
 
  

@@ -6,6 +6,7 @@ import {
   setLoginUser,
   setTokenId,
   setUserDetails,
+  setOtpKey,
 } from '../../Reducers/AuthReducer';
 
 export const LoginUserAPI = async (
@@ -78,7 +79,36 @@ export const SignUpUserAPI = async (
     setLoad(false);
   }
 };
+//Forget Password Api
+export const ForgotPasswordAPI = async (
+  email: any,
+  setLoad: (value: boolean) => void,
+  navigation: any,
+) => {
+  setLoad(true);
+  try {
 
+    const res = await API.post(EndPoints.forgotPassword, {email});
+    if (res?.status === 200 || res?.status === 201) {
+      showSuccess(`${res.data.message}`);
+      console.log('Forgot Password Response ->', res?.data.otp);
+      store.dispatch(setOtpKey(res?.data.otp));
+      navigation.navigate('OtpVerification', {email: res?.data.email});
+    } else {
+      
+
+      showError(`${res.data.error}`);
+      
+    }
+  } catch (err: any) {
+    console.error('ForgotPasswordAPI error ->', err?.response?.data);
+    showError(err?.response?.data?.message || 'Something went wrong');
+    
+  }finally{
+      setLoad(false);
+  }
+
+};
 
 export const LogoutUserAPI = async () => {
   // return API.post(EndPoints.logout);
@@ -91,6 +121,7 @@ export const LogoutUserAPI = async () => {
     throw err;
   }
 };
+
 
 
 // export const SearchCompanyAPI = async (
