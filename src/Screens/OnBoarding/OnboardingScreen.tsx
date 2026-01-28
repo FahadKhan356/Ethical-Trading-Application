@@ -10,14 +10,19 @@ import {
   ScrollView,
 } from 'react-native';
 import { IMAGES } from '../../Constants/IMAGES';
-import { COLORS } from '../../Constants/COLORS';
 import {useNavigation} from '@react-navigation/native';
 import { Dimensions } from 'react-native';
-import styles from '../../styles/AuthScreen/OnboardingStyles'
-
+import styles from '../../styles/OnBoarding/OnboardingStyles'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { setFirst } from '../../Store/Reducers/AuthReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../Store/type';
 const { width, height } = Dimensions.get('window');
+ 
 
-const OnboardingScreen: React.FC = () => {
+const OnboardingScreen: React.FC = async() => {
+  const first = useSelector((state: RootState) => state.auth.first);
+    const dispatch = useDispatch();
     const navigation = useNavigation<any>();
   return (
     <ImageBackground
@@ -43,14 +48,21 @@ const OnboardingScreen: React.FC = () => {
         
           <Text style={styles.title}>Empower</Text>
           <Text style={styles.subtitle}>
-            Your Trade With{'\n'}Complete Knowledge
+            Your trade With{'\n'}Complete Knowledge
           </Text>
 
           
        
   <TouchableOpacity style={styles.button}onPress={() => {
-  console.log('Pressed');
-  navigation.navigate('LoginScreen');
+  console.log(`before  ${first}`);
+  dispatch(setFirst());
+ console.log(`after  ${first}`);
+
+        
+  navigation.reset({
+        index: 0,
+        routes: [{ name: 'LoginScreen' }],
+      });
 }}>
     <View style={styles.arrowCircle}>
       <Text style={styles.arrow}>➜</Text>

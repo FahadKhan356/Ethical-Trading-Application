@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     height: width * 0.60,
     marginBottom: height * 0.085,     
     alignSelf: 'center',
-    resizeMode: 'contain',
+    resizeMode: 'contain'
   },
 
   title: {

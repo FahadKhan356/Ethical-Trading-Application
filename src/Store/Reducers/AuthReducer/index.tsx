@@ -1,12 +1,3 @@
-import {createSlice} from '@reduxjs/toolkit';
-
-const initialState = {
-  loginUser: false,
-  userDetails: [],
-  tokenId: null,
-  first: true,
-  otp:null,
-};
 // const initialState =
 //  {
 //   loginUser: true, // Set to true to bypass login screens
@@ -25,13 +16,26 @@ const initialState = {
 //     }
 //   },
 // };
+import {createSlice} from '@reduxjs/toolkit';
+
+
+const initialState = {
+  // firstTime:true,
+  loginUser: false,
+  userDetails: [],
+  tokenId: null,
+  first: false,
+  otp:null,
+};
+
+
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     setFirst: state => {
-      state.first = false;
+      state.first = true;
     },
     setLoginUser: state => {
       state.loginUser = true;
@@ -45,7 +49,15 @@ const authSlice = createSlice({
     setOtpKey:(state, action)=>{
       state.otp=action.payload
     },
-    logOut: () => initialState,
+    // setFirstTime:(state, action)=>{
+    //   // state.firstTime=action.payload
+    // },
+  logOut(state) {
+      state.loginUser = false;
+      state.tokenId = null;
+      state.userDetails = [];
+    
+    },
   },
 });
 

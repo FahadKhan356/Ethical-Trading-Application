@@ -6,6 +6,7 @@ export const EndPoints = {
   login: '/auth/login',
   logout: '/auth/logout',
   forgotPassword: '/auth/request-reset',
+  onBoardingQA: '/auth/onboarding',
   company: '/api/company',
 
 

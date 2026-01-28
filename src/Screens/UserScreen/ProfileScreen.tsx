@@ -19,6 +19,7 @@ import { LogoutUserAPI } from '../../Store/Action/AuthAction';
 import { logOut } from '../../Store/Reducers/AuthReducer';
 import { showError } from '../../Constants/FlashMessage';
 import { store } from '../../Store/store';
+import { RootState } from '../../Store/type';
 
 const { width, height } = Dimensions.get('window');
 
@@ -36,13 +37,13 @@ const ProfileScreen = () => {
   // const userName = `${user?.firstName || ''} ${user?.lastName || ''}`.trim();
   // const userEmail = user?.email || '';
   // ✅ NEW (Safe and Correct):
-const user = useSelector((state: any) => state.auth?.userDetails?.user);
-
-// Fallback logic to prevent empty strings or crashes
-const userName = user 
-  ? `${user.firstName ?? ''} ${user.lastName ?? ''}`.trim() 
-  : 'Guest User';
-const userEmail = user?.email ?? 'No email available';   
+  // const user = useSelector((state: any) => state.auth?.userDetails?.user);
+  const user = useSelector((state: RootState) => state.auth.userDetails);
+  // Fallback logic to prevent empty strings or crashes
+  const userName = user
+    ? `${user.firstName ?? ''} ${user.lastName ?? ''}`.trim()
+    : 'Guest User';
+  const userEmail = user?.email ?? 'No email available';
   const handleLogout = async () => {
     try {
       console.log(
@@ -63,8 +64,8 @@ const userEmail = user?.email ?? 'No email available';
       showError('Logout Failed: Something went wrong while logging out');
     }
     //temprary block until api fixed
-    finally{
-       navigation.reset({
+    finally {
+      navigation.reset({
         index: 0,
         routes: [{ name: 'LoginScreen' }],
       });
@@ -88,19 +89,19 @@ const userEmail = user?.email ?? 'No email available';
           </TouchableOpacity>
         </View>
 
-  <View style={styles.editContainer}>
-<View style={styles.infoRow}>
-          <Image source={ICONS.usericon} style={styles.infoIcon} />
-          <Text style={styles.infoText}>{userName}</Text>
-        </View>
+        <View style={styles.editContainer}>
+          <View style={styles.infoRow}>
+            <Image source={ICONS.usericon} style={styles.infoIcon} />
+            <Text style={styles.infoText}>{userName}</Text>
+          </View>
 
-         <TouchableOpacity onPress={() =>  navigation.navigate('EditProfileScreen', { mode: 'username' })}>
+          <TouchableOpacity onPress={() => navigation.navigate('EditProfileScreen', { mode: 'username' })}>
             <Image source={ICONS.EditIcon} style={{ width: 20, height: 20 }} />
           </TouchableOpacity>
-  </View>
-        
+        </View>
 
-r
+
+        r
 
         <View style={styles.editContainer}>
           <View style={styles.infoRow}>
@@ -113,16 +114,16 @@ r
           </TouchableOpacity>
         </View>
 
-<View style={styles.editContainer}> 
-<View style={styles.infoRow}>
-          <Image source={ICONS.Lock} style={styles.infoIcon} />
-          <Text style={styles.infoText}>Password</Text>
-        </View>
-<TouchableOpacity onPress={() =>  navigation.navigate('EditProfileScreen', { mode: 'password' })}>
+        <View style={styles.editContainer}>
+          <View style={styles.infoRow}>
+            <Image source={ICONS.Lock} style={styles.infoIcon} />
+            <Text style={styles.infoText}>Password</Text>
+          </View>
+          <TouchableOpacity onPress={() => navigation.navigate('EditProfileScreen', { mode: 'password' })}>
             <Image source={ICONS.EditIcon} style={{ width: 20, height: 20 }} />
           </TouchableOpacity>
-</View>
-        
+        </View>
+
         <Text style={styles.sectionTitle}>AI Preferences</Text>
 
         <View style={styles.divider} />
@@ -305,7 +306,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textTransform: 'uppercase',
   },
-  
+
 });
 
 

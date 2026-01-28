@@ -3,10 +3,12 @@ import {PersistState} from 'redux-persist/es/types';
 interface UserDetails {
   id: string;
   name: string;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   profile_picture: string;
+  onboardingCompleted:boolean,
+
 }
 
 export interface AuthState {
@@ -16,7 +18,7 @@ export interface AuthState {
   tokenId: string | null;
 }
 
-export interface RootState {
+export interface RootState{
   auth: AuthState;
   _persist: PersistState;
 }

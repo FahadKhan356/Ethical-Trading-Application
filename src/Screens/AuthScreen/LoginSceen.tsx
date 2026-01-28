@@ -19,12 +19,15 @@ import { LoginUserAPI } from '../../Store/Action/AuthAction';
 import styles from '../../styles/AuthScreen/LoginStyles';
 import SocialButton from '../../Components/SocialBtn';
 import EmailProvider from '../ForgetPassword/EmailProvider';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../Store/type';
 
 
 const { width, height } = Dimensions.get('window');
 
 const LoginScreen = () => {
   const navigation = useNavigation<any>();
+    const user = useSelector((state:RootState)=>state.auth.userDetails);
 
   const [form, setForm] = useState({
     email: 'user@gmail.com',
@@ -55,11 +58,12 @@ const LoginScreen = () => {
     console.log('Login Payload ->', form);
     // navigation.navigate('HomeScreen');
 
-    LoginUserAPI(form, setLoading, navigation);
+    LoginUserAPI(form, setLoading, navigation,user);
   };
   
   const navigateToForgotPassword = () => {
-    navigation.navigate("EmailProvider");
+    // navigation.navigate("EmailProvider");
+    navigation.navigate('EmailProvider');
   };
 
   return (

@@ -49,10 +49,18 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: -40,
+    paddingHorizontal: 20,
     paddingTop: 20,
     paddingBottom: 12,
     justifyContent: 'space-between',
+     shadowColor: '#000', // Dark shadow color
+    shadowOffset: {
+      width: 0,
+      height: 4, // Adjust height for desired vertical offset
+    },
+        shadowOpacity: 20,
+        shadowRadius:20,
+        elevation: 30,
   },
 
   backBtn: {
@@ -62,6 +70,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.10)', 
     justifyContent: 'center',
     alignItems: 'center',
+    shadowColor: COLORS.black, // Dark shadow color
+    // shadowOffset: {
+    //   width: 8,
+    //   height: 4, // Adjust height for desired vertical offset
+    // },
+        
+        elevation: 10,
   },
 
   backIcon: {
@@ -72,9 +87,17 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 145,
-    height: 80,
+    width: 180,
+    height: 100,
     resizeMode: 'contain',
+     shadowColor: '#000', // Dark shadow color
+    shadowOffset: {
+      width:100,
+      height: 4, // Adjust height for desired vertical offset
+    },
+        shadowOpacity: 20,
+        shadowRadius:20,
+        elevation: 30,
   },
 
   placeholder: {
