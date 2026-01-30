@@ -20,7 +20,6 @@ import {createSlice} from '@reduxjs/toolkit';
 
 
 const initialState = {
-  // firstTime:true,
   loginUser: false,
   userDetails: [],
   tokenId: null,
@@ -49,6 +48,7 @@ const authSlice = createSlice({
     setOtpKey:(state, action)=>{
       state.otp=action.payload
     },
+
     // setFirstTime:(state, action)=>{
     //   // state.firstTime=action.payload
     // },

@@ -15,7 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { IMAGES } from '../../Constants/IMAGES';
 import { COLORS } from '../../Constants/COLORS';
 import CustomInput from '../../Components/CustomInput';
-import { LoginUserAPI } from '../../Store/Action/AuthAction';
+import { LoginUserAPI,signInWithGoogle } from '../../Store/Action/AuthAction';
 import styles from '../../styles/AuthScreen/LoginStyles';
 import SocialButton from '../../Components/SocialBtn';
 import EmailProvider from '../ForgetPassword/EmailProvider';
@@ -59,6 +59,7 @@ const LoginScreen = () => {
     // navigation.navigate('HomeScreen');
 
     LoginUserAPI(form, setLoading, navigation,user);
+   
   };
   
   const navigateToForgotPassword = () => {
@@ -124,7 +125,7 @@ const LoginScreen = () => {
 
         <View style={styles.socialBtnContainer}>
 
-          <SocialButton image={IMAGES.Google} onPress={() => { }} />
+          <SocialButton image={IMAGES.Google} onPress={() => {  signInWithGoogle(navigation,setLoading);}} />
           <SocialButton image={IMAGES.XTwitter} onPress={() => { }} />
           <SocialButton image={IMAGES.Facebook} onPress={() => { }} />
 
@@ -132,6 +133,7 @@ const LoginScreen = () => {
 
 
 
+- 
 
       </ScrollView>
     </ImageBackground>

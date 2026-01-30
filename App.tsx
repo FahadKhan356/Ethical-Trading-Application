@@ -13,10 +13,12 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {store, persistor} from './src/Store/store';
 import AppNavigation from './src/Navigation/AppNavigation';
 import {COLORS} from './src/Constants/COLORS';
+import { configureGoogleSignIn } from './src/config/googleConfig';
 
 const App = () => {
   useEffect(() => {
     LogBox.ignoreAllLogs();
+    configureGoogleSignIn();
   }, []);
 
   return (

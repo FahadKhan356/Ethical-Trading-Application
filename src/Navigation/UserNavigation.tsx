@@ -44,7 +44,7 @@ const UserNavigation: React.FC<Props> = ({isLoggedIn}) => {
   const user = useSelector((state:RootState)=>state.auth.userDetails);
   const getInitialRoute = () => {
  
-    if (!isFirstTime==false) { //if true means done
+    if (isFirstTime==false) { //if true means done
     return 'OnboardingScreen'; // Literal first open
   }
   
@@ -52,7 +52,8 @@ const UserNavigation: React.FC<Props> = ({isLoggedIn}) => {
     return 'LoginScreen'; // Returning user but logged out
   }
 
-  if (!user?.onboardingCompleted==false) { // if true means done
+  if (user!.onboardingCompleted==false) { // if true means done
+    console.log("onboarding Qa = ", user.onboardingCompleted);
     return 'OnBoardingQ1'; 
   }
 

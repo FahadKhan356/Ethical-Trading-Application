@@ -32,18 +32,7 @@ const OnBoardingQ1 = () => {
 
   const navigation = useNavigation<any>();
   const token = useSelector((state: RootState) => state.auth.tokenId) ?? null;
-  
-//  const StoreQaApi = async (data: {
-//   ans1: string;
-//   ans2: string;
-//   ans3: string;
-// },token:string) => {
-//   try {
-//     return await API.post(EndPoints.onBoardingQA, data);
-//   } catch (err: any) {
-//     showError(err?.response?.data?.message || 'Something went wrong');
-//   }
-// };
+
 
 
   const [step, setSteps] = useState(0);
@@ -55,10 +44,10 @@ const [ans, setAns] = useState({
   ans3: '',
 });
 
-   
+     const isLastStep = step === Qa_List.length-1;
   const currQuestion= Qa_List[step];
 const storeAnswer = () => {
-  if (selected === null || !selected) return;
+  if (selected === null) return;
 
   const answerKey = `ans${step + 1}` as keyof typeof ans;
   const answerValue = currQuestion.options[selected];
@@ -69,19 +58,34 @@ const storeAnswer = () => {
   }));
 };
 
- const handleCurrStep = () => {
-  storeAnswer();
+const handleCurrStep = () => {
+  if (selected === null) return;
 
-  if (step < Qa_List.length - 1) {
+  const answerKey = `ans${step + 1}` as keyof typeof ans;
+  const answerValue = currQuestion.options[selected];
+
+  const updatedAns = {
+    ...ans,
+    [answerKey]: answerValue,
+  };
+
+  setAns(updatedAns);
+
+  if (!isLastStep) {
     setSteps(prev => prev + 1);
-    
+    setSelected(0);
   } else {
-    // LAST STEP → API CALL
-    console.log('Final Answers:', ans);
+    console.log('Final Answers:', updatedAns);
 
- StoreQaApi(ans, token!,navigation);
+    StoreQaApi(updatedAns, token!);
+
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'HomeScreen' }],
+    });
   }
 };
+
 
 
 
@@ -155,7 +159,7 @@ const storeAnswer = () => {
   <CustomButton
     title="Next"
     onPress={() => handleCurrStep()
-      //  navigation.navigate('OnBoardingQ2')
+
       }
   />
 </View>

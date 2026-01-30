@@ -3,14 +3,31 @@ import API from '../../../Constants/API';
 import { showError, showSuccess } from '../../../Constants/FlashMessage';
 import { EndPoints } from '../../../Constants/Routes';
 import { store } from '../../../Store/store';
+import Config from "react-native-config";
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import {
   setLoginUser,
   setTokenId,
   setUserDetails,
   setOtpKey,
 } from '../../Reducers/AuthReducer';
-import { RootState } from '../../type';
 
+ const redirection = (onBoardingCompleted:any , navigation:any) => {
+    if (onBoardingCompleted==true) {
+      console.log("in login api ig true : ",onBoardingCompleted);
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'HomeScreen' }],
+      });
+    }else{
+         console.log("in login api ig false : ", onBoardingCompleted);
+          navigation.reset({
+        index: 0,
+        routes: [{ name: 'OnBoardingQ1' }],
+      });
+    } 
+
+  }
 export const LoginUserAPI = async (
   data: any,
   setLoad: (value: boolean) => void,
@@ -18,20 +35,7 @@ export const LoginUserAPI = async (
   user: any,
 ) => {
 
-  const redirection = () => {
-    if (user?.onboardingCompleted) {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'HomeScreen' }],
-      });
-    } else {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'OnBoardingQ1' }],
-      });
-    }
-
-  }
+ 
 
   setLoad(true);
 
@@ -43,23 +47,17 @@ export const LoginUserAPI = async (
     console.log('Login Response ->', res?.data);
 
     if (res?.status === 201 || res?.status === 200) {
-      console.log('Login Response new ->', res?.data.user.email);
+      console.log('Login Response new ->', res?.data.user.onboardingCompleted);
       store.dispatch(setTokenId(res.data.access_token));
       store.dispatch(setUserDetails(res.data.user));
       store.dispatch(setLoginUser());
+      redirection(res.data.user.onboardingCompleted,navigation);
 
-      showSuccess('Login successfully');
 
-      // navigation.reset({
-      //   index: 0,
-      //   routes: [{name: 'HomeScreen'}],
-      // });
-
-      redirection();
     }
     else {
       console.log('Login Response new 1 ->', res?.data.token);
-      console.log('Response ->', res.status, res.data);
+      console.log('Response w->', res.status, res.data.refresh_token);
       showError('Login failed ');
     }
   } catch (err: any) {
@@ -149,7 +147,7 @@ export const StoreQaApi = async (data: {
   ans2: string;
   ans3: string;
 }, token: string,
-  navigation:any
+
 ) => {
   try {
     return await API.post(EndPoints.onBoardingQA, data, {
@@ -157,15 +155,61 @@ export const StoreQaApi = async (data: {
         Authorization: `Bearer ${token}`,
       },
     });
-   navigation.reset({
-        index: 0,
-        routes: [{ name: 'Home' }],
-      });
+  
   
   } catch (err: any) {
     showError(err?.response?.data?.message || 'Something went wrong');
   }
 }
+
+
+
+export const signInWithGoogle = async (navigation:any, setLoad:(value:boolean)=>void) => {
+  try{
+  setLoad(true);
+  await GoogleSignin.hasPlayServices();
+  const userInfo = await GoogleSignin.signIn();
+
+// In newer versions, data is nested inside 'data'
+const idToken = userInfo.data?.idToken;
+
+if (!idToken) {
+  throw new Error("No ID Token received from Google");
+}
+
+console.log("Success! ID Token:", idToken);
+
+  
+  console.log("id token after : ", idToken );
+  // Send idToken to backend
+  const res = await API.post(EndPoints.googleAuth, { idToken } 
+  //   {
+  //   method: 'POST',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify({ idToken}),
+  // }
+);
+  console.log("response status : ", res.status);
+ if(res.status == 200 || res.status ==201){
+     store.dispatch(setTokenId(res.data.access_token));
+      store.dispatch(setUserDetails(res.data.user));
+      store.dispatch(setLoginUser());  
+  navigation.reset({
+        index: 0,
+        routes: [{ name: 'HomeScreen' }],
+ });
+ console.log("Google Auth Done .... !")
+
+ }
+
+
+  }catch(err){
+    console.log("google auth error: ",err);
+  }finally{
+     setLoad(true);
+  }
+
+};
 
 
 
